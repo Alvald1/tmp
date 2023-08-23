@@ -1,0 +1,157 @@
+(function( $ ) {
+
+	$(document).ready(function(){
+
+		// Adding to cart button icon / hide variable section
+		$(document.body).on('adding_to_cart', function(e, thisbutton ){
+
+			$(thisbutton).addClass('disabled').find('.success-svg, .cart-svg').hide();
+			$(thisbutton).closest('.card-product')
+			.find('.variable-products').addClass('disabled');
+
+		});
+
+		// Added to cart button icon / show variable section
+		$(document.body).on('added_to_cart', function(e, fragments, cart_hash, thisbutton ){
+
+			$(thisbutton).find('.success-svg').show().delay(1500).fadeOut(250, function(){
+
+				$(this).siblings('.cart-svg').fadeIn(250);
+				$(thisbutton).removeClass('disabled');
+				$(thisbutton).closest('.card-product')
+			.find('.variable-products').removeClass('disabled');
+
+			});
+
+		});
+
+		// Remove view cart link
+		$(document.body).on('wc_cart_button_updated', function(e, thisbutton ){
+
+			$(thisbutton).siblings('.added_to_cart').remove();
+
+		});
+
+
+		// Change variable product card info by click
+		$(document.body).on('click', '.card-product .variable-products span', function(){
+
+			var $current_element	= $(this),
+				$card_button		= $current_element.closest('.card-product').find('.price-cart .button'),
+				$preview_src		= $current_element.data('preview'),
+				$product_id			= $current_element.data('variation'),
+				$product_stock		= $current_element.data('stock'),
+				$product_price		= $current_element.data('price'),
+				$product_preorder	= $current_element.data('preorder'),
+				$product_sale		= $current_element.data('sale'),
+				replaced_title		= '';
+
+			// Add white circle to chosen element
+			$current_element.addClass('chosen').siblings().removeClass('chosen');
+
+			// Show sale flash
+			if ($product_sale === 1) {
+
+				$current_element.closest('.card-product')
+				.find('.sale-icon').removeClass('hidden');
+
+			} else {
+
+				$current_element.closest('.card-product')
+				.find('.sale-icon').addClass('hidden');
+
+			}
+
+			// Replace img src
+			$current_element.closest('.card-product')
+			.find('img').attr({'srcset': '', 'src': $preview_src});
+			// FIX THAT LATER----------------------------------------------------------
+			
+			// Replace stock info
+			$current_element.closest('.card-product')
+			.find('.stock-quantity').text($product_stock);
+
+			// Replace stock text color and peorder data
+			if ($product_preorder === 1) {
+
+				// Text color
+				$current_element.closest('.card-product')
+				.find('.stock-quantity').removeClass('color-main').addClass('color-meta');
+
+				// Data
+				$card_button.addClass('bg-meta preorder-btn')
+				.removeClass('ajax_add_to_cart')
+				.find('.cart-svg').addClass('hidden')
+				.siblings('.clock-svg').removeClass('hidden');
+
+				// Title / aria-label
+				replaced_title = $card_button.attr('title')
+				.replace('Добавить в корзину', 'Оформить предзаказ на');
+				$card_button.attr({'title': replaced_title, 'aria-label': replaced_title});
+
+			} else {
+
+				// Text color
+				$current_element.closest('.card-product')
+				.find('.stock-quantity').removeClass('color-meta').addClass('color-main');
+
+				// Data
+				$card_button.removeClass('bg-meta preorder-btn')
+				.addClass('ajax_add_to_cart')
+				.find('.clock-svg').addClass('hidden')
+				.siblings('.cart-svg').removeClass('hidden');
+
+				// Title / aria-label
+				replaced_title = $card_button.attr('title')
+				.replace('Оформить предзаказ на', 'Добавить в корзину');
+				$card_button.attr({'title': replaced_title, 'aria-label': replaced_title});
+
+			}
+
+			// Replace price
+			$current_element.closest('.card-product')
+			.find('.price-cart .woocommerce-Price-amount').text($product_price);
+			
+			// Replace product-id at data attribute and at link
+			$current_element.closest('.card-product').find('.price-cart .button').attr( 'data-product_id', $product_id );
+			
+			// Replace button url
+			var url = $current_element.closest('.card-product').find('.price-cart .button').attr('href');
+				newUrl = url.replace(/([^\?]+\?add-to-cart=)[\d]+/gi, '$1' + $product_id);
+			
+			$current_element.closest('.card-product').find('.price-cart .button').attr('href', newUrl);
+		});
+
+		// Rotate colored circle
+		if ($(window).width() > 1279) {
+
+			$(document.body).on('mouseenter', '.card-product .variable-products .other-colors svg', function(){
+				$(this).addClass('rotation');
+			});
+
+			$(document.body).on('mouseleave', '.card-product .variable-products .other-colors svg', function(){
+				var rotate_matrix = $(this).css('transform');
+
+				if (rotate_matrix !== 'none') {
+
+					var values = rotate_matrix.split('(')[1].split(')')[0].split(',');
+					var a = values[0];
+					var b = values[1];
+					var angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+
+				} else {
+
+					var angle = 0;
+
+				}
+
+				var unhover_position = (angle < 0) ? angle + 360 : angle;
+
+				$(this).removeClass('rotation').css('transform', 'rotate(' + unhover_position + 'deg)');
+			})
+
+		}
+
+	});
+
+})( jQuery );

@@ -1,0 +1,37 @@
+(function( $ ) {
+	$( document ).ready( function() {
+		$( document.body ).on( 'click', '#get-promocode-submit', function(e) {
+			e.preventDefault();
+			
+			var data = {
+				action: 'get_promocode_by_phone',
+				phone: $( '#promocode-phone-field' ).val(),
+				promo: $( '#get-promocode-post-id' ).val(),
+			};
+			var $promoBlockWait = $( '#get-promocode-block-wait' );
+			
+			$.ajax( {
+				url: ajaxUrlPromo,
+				type: 'POST',
+				data: data,
+				beforeSend: function () {
+					$promoBlockWait.toggleClass( 'display-loading display-hidden' );
+				},
+				success: function( response ) {
+					if ( response ) {
+						
+						console.log( response.fragments );
+						$.each( response.fragments, function( key, value ) {
+							$( key ).replaceWith( value );
+						});
+			
+						$( document.body ).trigger( 'ip_promocode_released' );	
+					}
+				},
+				complete: function() {
+					$promoBlockWait.toggleClass( 'display-loading display-hidden' );
+				}
+			} );
+		});		
+	});
+})( jQuery );

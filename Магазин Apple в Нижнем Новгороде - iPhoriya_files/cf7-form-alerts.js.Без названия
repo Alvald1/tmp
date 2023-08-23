@@ -1,0 +1,21 @@
+(function( $ ) {
+
+	$( document ).ready( function() {
+
+		// Show alert borders
+		$( '.wpcf7' ).on( 'wpcf7invalid', function() {
+			$( this ).find( '.wpcf7-form-control-wrap .wpcf7-not-valid' ).each( function() {
+				$( this ).parent().addClass( 'alert-border' );
+			} );
+		} );
+
+		// Hide alert borders
+		$( '.wpcf7 .wpcf7-form-control-wrap .wpcf7-form-control' ).on( 'focus', function() {
+			if ( $( this ).parent().hasClass( 'alert-border' ) ) {
+				$( this ).parent().removeClass( 'alert-border' );
+			}
+		} );
+
+	} );
+
+})( jQuery );

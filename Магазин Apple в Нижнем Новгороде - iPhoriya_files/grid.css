@@ -1,0 +1,237 @@
+/* Wrappers of grid */
+.wrap {
+	width: 100%;
+}
+
+.container {
+	margin: 0 auto;
+}
+
+.row {
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+.row > * {
+	width: 100%;
+	margin-right: 20px;
+}
+
+/* Large - lg */
+@media only screen and (min-width: 1280px) {
+
+	.container {
+		width: 1180px;
+	}
+
+	/* Rows */
+	.row_lg_1 > * {
+		margin-right: 0;
+	}
+
+	.row_lg_2 > *:nth-child(2n) {
+		margin-right: 0;
+	}
+
+	.row_lg_3 > *:nth-child(3n) {
+		margin-right: 0;
+	}
+
+	.row_lg_4 > *:nth-child(4n) {
+		margin-right: 0;
+	}
+
+	.row_lg_5 > *:nth-child(5n) {
+		margin-right: 0;
+	}
+
+	.row_lg_6 > *:nth-child(6n) {
+		margin-right: 0;
+	}
+
+	/* Columns */
+	.col_lg_n {
+		display: none !important;
+	}
+
+	.col_lg_1_1 {
+		max-width: 100%;
+	}
+
+	.col_lg_1_2 {
+		max-width: -webkit-calc((100% - 20px) / 2);
+		max-width: calc((100% - 20px) / 2);
+	}
+
+	.col_lg_1_3 {
+		max-width: -webkit-calc((100% - 20px * 2) / 3);
+		max-width: calc((100% - 20px * 2) / 3);
+	} 
+
+	.col_lg_2_3 { 
+		max-width: -webkit-calc((((100% - 20px * 2) / 3) * 2) + 20px); 
+		max-width: calc((((100% - 20px * 2) / 3) * 2) + 20px);
+	} 
+
+	.col_lg_1_4 {
+		max-width: -webkit-calc((100% - 20px * 3) / 4);
+		max-width: calc((100% - 20px * 3) / 4);
+	}
+
+	.col_lg_3_4 {
+		max-width: -webkit-calc((((100% - 20px * 3) / 4) * 3) + 20px * 2);
+		max-width: calc((((100% - 20px * 3) / 4) * 3) + 20px * 2);
+	}
+
+	.col_lg_1_5 {
+		max-width: -webkit-calc((100% - 20px * 4) / 5);
+		max-width: calc((100% - 20px * 4) / 5);
+	}
+
+	.col_lg_2_5 {
+		max-width: -webkit-calc((((100% - 20px * 4) / 5) * 2) + 20px);
+		max-width: calc((((100% - 20px * 4) / 5) * 2) + 20px);
+	}
+
+	.col_lg_3_5 {
+		max-width: -webkit-calc((((100% - 20px * 4) / 5) * 3) + 20px * 2);
+		max-width: calc((((100% - 20px * 4) / 5) * 3) + 20px * 2);
+	}
+
+	.col_lg_4_5 {
+		max-width: -webkit-calc((((100% - 20px * 4) / 5) * 4) + 20px * 3);
+		max-width: calc((((100% - 20px * 4) / 5) * 4) + 20px * 3);
+	}
+
+	.col_lg_1_6 {
+		max-width: -webkit-calc((100% - 20px * 5) / 6);
+		max-width: calc((100% - 20px * 5) / 6);
+	}
+
+	.col_lg_5_6 {
+		max-width: -webkit-calc((((100% - 20px * 5) / 6) * 5) + 20px * 4);
+		max-width: calc((((100% - 20px * 5) / 6) * 5) + 20px * 4);
+	}
+}
+
+/* Medium - md */
+@media only screen and (min-width: 768px) and (max-width: 1279px) {
+
+	.container {
+		width: 688px;
+	}
+
+	/* Rows */
+	.row_md_1 > * {
+		margin-right: 0;
+	}
+
+	.row_md_2 > *:nth-child(2n) {
+		margin-right: 0;
+	}
+
+	.row_md_3 > *:nth-child(3n) {
+		margin-right: 0;
+	}
+
+	.row_md_4 > *:nth-child(4n) {
+		margin-right: 0;
+	}
+
+	/* Columns */
+	.col_md_n {
+		display: none !important;
+	}
+
+	.col_md_1_1 {
+		max-width: 100%;
+	}
+
+	.col_md_1_2 {
+		max-width: -webkit-calc((100% - 20px) / 2);
+		max-width: calc((100% - 20px) / 2);
+	}
+
+	.col_md_1_3 {
+		max-width: -webkit-calc((100% - 20px * 2) / 3);
+		max-width: calc((100% - 20px * 2) / 3);
+	} 
+
+	.col_md_2_3 { 
+		max-width: -webkit-calc((((100% - 20px * 2) / 3) * 2) + 20px); 
+		max-width: calc((((100% - 20px * 2) / 3) * 2) + 20px);
+	} 
+
+	.col_md_1_4 {
+		max-width: -webkit-calc((100% - 20px * 3) / 4);
+		max-width: calc((100% - 20px * 3) / 4);
+	}
+
+	.col_md_3_4 {
+		max-width: -webkit-calc((((100% - 20px * 3) / 4) * 3) + 20px * 2);
+		max-width: calc((((100% - 20px * 3) / 4) * 3) + 20px * 2);
+	}
+}
+
+/* Small - sm */
+@media only screen and (min-width: 375px) and (max-width: 767px) {
+
+	.container {
+		padding: 0 20px;
+	}
+
+	/* Rows */
+	.row_sm_1 > * {
+		margin-right: 0;
+	}
+
+	.row_sm_2 > *:nth-child(2n) {
+		margin-right: 0;
+	}
+
+	/* Columns */
+	.col_sm_n {
+		display: none !important;
+	}
+
+	.col_sm_1_1 {
+		max-width: 100%;
+	}
+
+	.col_sm_1_2 {
+		max-width: -webkit-calc((100% - 20px) / 2);
+		max-width: calc((100% - 20px) / 2);
+	}
+}
+
+/* Extra small */
+@media only screen and (min-width: 320px) and (max-width: 374px) {
+	
+	.container {
+		padding: 0 10px;
+	}
+	
+	/* Columns */
+	.row > * {
+		margin-right: 0;
+	}
+}
+
+/* Ultra small */
+@media only screen and (max-width: 319px) {
+
+	body {
+		min-width: 320px;
+		overflow-x: scroll; 
+	}
+}

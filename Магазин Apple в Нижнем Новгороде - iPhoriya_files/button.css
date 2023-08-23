@@ -1,0 +1,227 @@
+/* Button */
+
+.fixed-button-wrap {
+    position: fixed;
+    z-index: 200;
+    right: 60px;
+    bottom: 60px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.fixed-button-wrap .colored-box {
+    position: relative;
+    z-index: 100;
+    width: 60px;
+    height: 60px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+    -webkit-animation: pendulum 3s infinite;
+    animation: pendulum 3s infinite;
+
+}
+
+.fixed-button-wrap .custom-pulsation {
+    position: absolute;
+    z-index: 10;
+    right: -9px;
+    bottom: -9px;
+    display: block;
+    width: 78px;
+    height: 78px;
+    opacity: .75;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-animation: pulsation 3s infinite ease-in-out;
+    animation: pulsation 3s infinite ease-in-out;
+}
+
+
+.fixed-button-wrap:hover .colored-box {
+    -webkit-animation: pendulum-hover 2s infinite;
+    animation: pendulum-hover 2s infinite;
+}
+
+.fixed-button-wrap:hover .custom-pulsation {
+    -webkit-animation: pulsation-hover 2s infinite ease-in-out;
+    animation: pulsation-hover 2s infinite ease-in-out;
+}
+
+/* Animations */
+
+@-webkit-keyframes pendulum {
+    0% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+    4.166% {-webkit-transform: rotate(30deg);transform: rotate(30deg);}
+    8.333% {-webkit-transform: rotate(-30deg);transform: rotate(-30deg);}
+    12.499% {-webkit-transform: rotate(15deg);transform: rotate(15deg);}
+    16.666% {-webkit-transform: rotate(-15deg);transform: rotate(-15deg)}
+    20.832% {-webkit-transform: rotate(7.5deg);transform: rotate(7.5deg);}
+    24.999% {-webkit-transform: rotate(-7.5deg);transform: rotate(-7.5deg);}
+    29.165% {-webkit-transform: rotate(3.75deg);transform: rotate(3.75deg);}
+    33.332% {-webkit-transform: rotate(-3.75deg);transform: rotate(-3.75deg);}
+    37.498% {-webkit-transform: rotate(1.875deg);transform: rotate(1.875deg);}
+    41.665% {-webkit-transform: rotate(-1.875deg);transform: rotate(-1.875deg);}
+    45.832% {-webkit-transform: rotate(0.9375deg);transform: rotate(0.9375deg);}
+    50% {-webkit-transform: rotate(-0.9375deg);transform: rotate(-0.9375deg);}
+    100% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+}
+
+@keyframes pendulum {
+    0% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+    4.166% {-webkit-transform: rotate(30deg);transform: rotate(30deg);}
+    8.333% {-webkit-transform: rotate(-30deg);transform: rotate(-30deg);}
+    12.499% {-webkit-transform: rotate(15deg);transform: rotate(15deg);}
+    16.666% {-webkit-transform: rotate(-15deg);transform: rotate(-15deg)}
+    20.832% {-webkit-transform: rotate(7.5deg);transform: rotate(7.5deg);}
+    24.999% {-webkit-transform: rotate(-7.5deg);transform: rotate(-7.5deg);}
+    29.165% {-webkit-transform: rotate(3.75deg);transform: rotate(3.75deg);}
+    33.332% {-webkit-transform: rotate(-3.75deg);transform: rotate(-3.75deg);}
+    37.498% {-webkit-transform: rotate(1.875deg);transform: rotate(1.875deg);}
+    41.665% {-webkit-transform: rotate(-1.875deg);transform: rotate(-1.875deg);}
+    45.832% {-webkit-transform: rotate(0.9375deg);transform: rotate(0.9375deg);}
+    50% {-webkit-transform: rotate(-0.9375deg);transform: rotate(-0.9375deg);}
+    100% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+}
+
+@-webkit-keyframes pendulum-hover {
+    0% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+    4.166% {-webkit-transform: rotate(30deg);transform: rotate(30deg);}
+    8.333% {-webkit-transform: rotate(-30deg);transform: rotate(-30deg);}
+    12.499% {-webkit-transform: rotate(15deg);transform: rotate(15deg);}
+    16.666% {-webkit-transform: rotate(-15deg);transform: rotate(-15deg)}
+    20.832% {-webkit-transform: rotate(7.5deg);transform: rotate(7.5deg);}
+    24.999% {-webkit-transform: rotate(-7.5deg);transform: rotate(-7.5deg);}
+    29.165% {-webkit-transform: rotate(3.75deg);transform: rotate(3.75deg);}
+    33.332% {-webkit-transform: rotate(-3.75deg);transform: rotate(-3.75deg);}
+    37.498% {-webkit-transform: rotate(1.875deg);transform: rotate(1.875deg);}
+    41.665% {-webkit-transform: rotate(-1.875deg);transform: rotate(-1.875deg);}
+    45.832% {-webkit-transform: rotate(0.9375deg);transform: rotate(0.9375deg);}
+    50% {-webkit-transform: rotate(-0.9375deg);transform: rotate(-0.9375deg);}
+    100% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+}
+
+@keyframes pendulum-hover {
+    0% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+    4.166% {-webkit-transform: rotate(30deg);transform: rotate(30deg);}
+    8.333% {-webkit-transform: rotate(-30deg);transform: rotate(-30deg);}
+    12.499% {-webkit-transform: rotate(15deg);transform: rotate(15deg);}
+    16.666% {-webkit-transform: rotate(-15deg);transform: rotate(-15deg)}
+    20.832% {-webkit-transform: rotate(7.5deg);transform: rotate(7.5deg);}
+    24.999% {-webkit-transform: rotate(-7.5deg);transform: rotate(-7.5deg);}
+    29.165% {-webkit-transform: rotate(3.75deg);transform: rotate(3.75deg);}
+    33.332% {-webkit-transform: rotate(-3.75deg);transform: rotate(-3.75deg);}
+    37.498% {-webkit-transform: rotate(1.875deg);transform: rotate(1.875deg);}
+    41.665% {-webkit-transform: rotate(-1.875deg);transform: rotate(-1.875deg);}
+    45.832% {-webkit-transform: rotate(0.9375deg);transform: rotate(0.9375deg);}
+    50% {-webkit-transform: rotate(-0.9375deg);transform: rotate(-0.9375deg);}
+    100% {-webkit-transform: rotate(0deg);transform: rotate(0deg);}
+}
+
+@-webkit-keyframes pulsation {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0
+    }
+}
+
+@keyframes pulsation {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0
+    }
+}
+
+@-webkit-keyframes pulsation-hover {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0
+    }
+}
+
+@keyframes pulsation-hover {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0)
+    }
+
+    50% {
+        -webkit-transform: scale(1);
+        transform: scale(1)
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0
+    }
+}
+
+/*------ Small - sm ------*/
+
+@media only screen and (max-width: 767px) {
+    .fixed-button-wrap {
+        right: 30px;
+        bottom: 30px;
+    }
+}

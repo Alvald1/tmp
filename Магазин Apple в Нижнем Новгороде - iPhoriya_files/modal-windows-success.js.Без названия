@@ -1,0 +1,76 @@
+( function( $ ) {
+	document.addEventListener( 'wpcf7mailsent', function( event ) {
+		
+		function modalSuccess() {
+			$( '.modal-wrap' ).hide( 0, function() {
+				$( '#modal-success' ).fadeIn( 250 );
+			} );
+		}
+
+		function modalSuccessOverlay() {
+			$( '.overlay' ).fadeIn( 250, function() {
+				$( '#modal-success' ).fadeIn( 250 );
+			});
+		}
+		
+		function getGoalAmount( data, key ) {
+			let amount = data.find( ( field ) => {
+				if ( field.name === key ) {
+					return true;
+				}
+			} )
+			
+			return amount.value;
+		}
+		
+		// Trade In calculator
+    if ( 87 === event.detail.contactFormId ) {
+			modalSuccessOverlay();
+			
+			$( document.body ).trigger( 'ip_tradein_calc_complete', [ getGoalAmount( event.detail.inputs, 'trade-in-price' ) ] );
+		}
+		
+		// Callback
+		if ( 50 === event.detail.contactFormId ) {
+			modalSuccess();
+
+			$( document.body ).trigger( 'ip_request_callback' );
+		}
+
+		// Reserve a device
+		if ( 127 === event.detail.contactFormId ) {
+			modalSuccess();
+
+			$( document.body ).trigger( 'ip_tradein_reserved_device', [ getGoalAmount( event.detail.inputs, 'reserved-price' ) ] );
+		}
+
+		// One click form
+		if ( 134 === event.detail.contactFormId ) {
+			modalSuccess();
+
+			$( document.body ).trigger( 'ip_product_order_one_click', [ getGoalAmount( event.detail.inputs, 'form-one-click-price' ) ] );
+		}
+
+		// Review page form
+		if ( 140 === event.detail.contactFormId ) {
+			modalSuccessOverlay();
+
+			$( document.body ).trigger( 'ip_review_wrote' );
+		}
+
+		// Form preorder
+		if ( 153 === event.detail.contactFormId ) {
+			modalSuccess();
+
+			$( document.body ).trigger( 'ip_product_preorder_sent', [ getGoalAmount( event.detail.inputs, 'preorder-price' ) ] );
+		}
+
+		// Form repair
+		if ( 4030 === event.detail.contactFormId ) {
+			modalSuccess();
+
+			$( document.body ).trigger( 'ip_repair_request_sent', [ getGoalAmount( event.detail.inputs, 'form-repair-price' ) ] );
+		}
+	    
+	}, false );
+} )( jQuery );

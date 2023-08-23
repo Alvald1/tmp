@@ -1,0 +1,9 @@
+( function( $ ) {
+	$( document ).ready( function() {
+
+		$( document.body ).on( 'added_to_cart', function( e, fragments ) {
+			dataLayer.push( JSON.parse( fragments.tracker_action_added_to_cart ) );
+		} );
+		
+	} );
+} )( jQuery );

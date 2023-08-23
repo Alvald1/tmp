@@ -1,0 +1,50 @@
+(function( $ ) {
+
+	$(document).ready(function(){
+
+		if ($(window).width() > 1279) {
+
+			$(window).scroll(function(){
+
+				if ($(window).scrollTop() >= 54) {
+
+					// Add class for header
+					$('header').addClass('sticky-header');
+
+					// Hide categories menu
+					$('#categories-menu').slideUp(0, function(){
+						// Change content in header
+						$('header .info-box .info-box-item').fadeOut(125, function(){
+							$('header #sticky-nav').fadeIn(150);
+						});
+					}).addClass('hidden');
+
+				} else {
+
+					// Remove class for header
+					$('header').removeClass('sticky-header');
+
+					// Show categories menu
+					$('#categories-menu').show(0, function(){
+						// Change content in header
+						$('header #sticky-nav').hide(0, function(){
+							$('header .info-box .info-box-item').show();
+						});
+					}).removeClass('hidden');
+
+					// Padding for drop-down menu
+					if ($(window).width() > 1279 && $('#nav-menu').is(':visible')) {
+						$('main').css('padding-top', '248px');
+					} else {
+						$('main').css('padding-top', '174px');
+					}
+
+				}
+
+			});
+
+		}
+
+	});
+	
+})( jQuery );

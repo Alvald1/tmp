@@ -1,0 +1,163 @@
+(function( $ ) {
+
+	$(document).ready(function(){
+    if (typeof JSConfetti === 'function') {
+      const canvas = document.querySelector('#confetti');
+
+      window.confetti = new JSConfetti({canvas});
+      window.confettiConfig = {
+        confettiColors: [
+          '#ff2c2c',
+          '#ffa032',
+          '#facf3e',
+          '#08d738',
+          '#37bdff',
+          '#1d61f3',
+          '#be18ff',
+        ],
+        confettiRadius: 5,
+        confettiNumber: 1000,
+      };
+    }
+
+    const birthdayPartyProductBox = document.querySelector('#modal-birthday-party .product-box');
+
+    birthdayPartyProductBox?.addEventListener('click', () => {
+      if (window.confetti) confetti.addConfetti(confettiConfig);
+    });
+
+		// Open modal window
+		function showWindow( modal ) {
+			$('.overlay').fadeIn(250, function(){
+				$(modal).fadeIn(250);
+			});
+
+			if ($(window).width() < 768) {
+				$('html, body').addClass('lock');
+			}
+		}
+
+		// Call modal window function
+		function callWindow(button, modal) {
+			$(document.body).on('click', button, function(e){
+				e.preventDefault();
+
+				showWindow( modal );
+			});
+		}
+
+		// Hide modal
+		$('.modal-wrap, #modal-success').on('click', '.button-close', function(){
+			$('.overlay, .modal-wrap, #modal-success').fadeOut(200);
+
+			if ($(window).width() < 768) {
+				$('html, body').removeClass('lock');
+			}
+		});
+
+		$('.overlay').on('click', function(){
+
+			$('.overlay, .modal-wrap, #modal-success').fadeOut(200);
+
+			if ($(window).width() < 768) {
+
+				$('html, body').removeClass('lock');
+				
+			}
+			
+		});
+		
+		// Modal windows open list
+		callWindow( '.callback-btn', $( '#callback' ) );
+		callWindow( '#credit-btn', $( '#modal-credit-short-form' ) );
+		callWindow( '.preorder-btn', $( '#preorder-form' ) );
+		callWindow( '.one-click-btn', $( '#one-click-form' ) );
+		callWindow( '.reserve-btn', $( '#reserve-form' ) );
+		callWindow( '.repair-btn', $( '#repair-form' ) );
+    callWindow('#button-birthday-party', $('#modal-birthday-party'));
+
+		$( document ).ready( function() {
+      const url = new URL(document.location);
+      const urlParams = url.searchParams;
+      const urlPath = url.pathname;
+      const promoSingular = /^\/promo\/.+/;
+
+      if (urlParams.get('utm_campaign') === 'qr-apple-basket') {
+        showWindow($('#modal-promo-basket-apple'));
+      }
+
+      if (!promoSingular.test(urlPath) && urlParams.get('utm_campaign') !== 'birthday-party') {
+        const modalBirthdayParty = document.getElementById('modal-birthday-party');
+
+        if (modalBirthdayParty && modalBirthdayParty.dataset.bubble === 'yes') {
+          setTimeout(() => {
+            showWindow($(modalBirthdayParty));
+
+            document.cookie = `birthday_party_offer=shown; path=/; max-age=${60 * 60 * 24 * 7};`;
+
+            if (window.confetti && window.confettiConfig) {
+              confetti.addConfetti(confettiConfig).then(() => {
+                confetti.addConfetti(confettiConfig).then(() => confetti.addConfetti(confettiConfig));
+              });
+            }
+          }, 5000);
+        }
+      }
+    });
+
+		/**
+		 * Additional fields on click
+		 */
+		// Reserve a device
+		$( document.body ).on( 'click', '.reserve-btn', function() {
+			let reservedDevicePrice;
+			
+			if ( $( this ).hasClass( 'single-btn' ) ) {
+				reservedDevicePrice = $( this ).siblings( '.current-price-wrap' ).find( '.price span' ).text();
+				
+				$( '#reserved-link' ).val( window.location.href );
+				$( '#reserved-price' ).val( parseInt( reservedDevicePrice.replace( /\s/g, '' ), 10 ) );
+			} else {
+				var link = $( this ).parent().siblings( 'h4' ).find( 'a' ).attr( 'href' );
+				reservedDevicePrice = $( this ).closest( '.price-cart' ).find( '.price span' ).text();
+				
+				$( '#reserved-link' ).val( link );
+				$( '#reserved-price' ).val( parseInt( reservedDevicePrice.replace( /\s/g, '' ), 10 ) );
+			}
+		} );
+
+		// Credit data on product single
+		$( document.body ).on( 'click', '#credit-btn', function() {
+			$( '#form-credit-link' ).val( window.location.href );
+		} );
+
+		// One click form data
+		$( document.body ).on( 'click', '.one-click-btn', function() {
+			var amount = $( this ).closest( '.product-info-wrap' ).find( '.input-text.qty' ).val();
+			var price = $( this ).closest( '.product-info-wrap' ).find( '.woocommerce-Price-amount.amount' ).text();
+			$( '#form-one-click-link' ).val( window.location.href );
+			$( '#form-one-click-amount' ).val( amount );
+			$( '#form-one-click-price' ).val( parseInt( amount ) * parseInt( price.replace( /\s/g, '' ), 10 ) );
+		} );
+
+		// Preorder form data
+		$( document.body ).on( 'click', '.preorder-btn', function() {
+			let preorderPrice;
+			
+			if ( $( this ).hasClass( 'single-btn' ) ) {
+				preorderPrice = $( this ).siblings( '.price-wrap' ).find( '.current-price-wrap .woocommerce-Price-amount.amount' ).text();
+				
+				$( '#preorder-link' ).val( window.location.href );
+				$( '#preorder-price' ).val( parseInt( preorderPrice.replace( /\s/g, '' ), 10 ) );
+			} else {
+				var link = $( this ).closest( '.card-product-content' ).find( '.woocommerce-LoopProduct-link' ).attr( 'href' );
+				preorderPrice = $( this ).closest( '.price-cart' ).find( '.woocommerce-Price-amount.amount' ).text();
+				
+				$( '#preorder-link' ).val( link );
+				$( '#preorder-price' ).val( parseInt( preorderPrice.replace( /\s/g, '' ), 10 ) );
+			}
+		} );
+
+	});
+
+})( jQuery );

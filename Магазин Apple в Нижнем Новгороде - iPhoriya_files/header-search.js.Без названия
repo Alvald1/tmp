@@ -1,0 +1,163 @@
+(function( $ ) {
+
+	$(document).ready(function(){
+		
+		function debounce( fn, delay ) {
+		  var timer = null;
+		  return function () {
+		    var context = this, args = arguments;
+		    clearTimeout( timer );
+		    timer = setTimeout( function () {
+		      fn.apply( context, args );
+		    }, delay );
+		  };
+		}
+		
+		function doAJAXsearch( s ) {
+			$.ajax( {
+				type: 'POST',
+				url: iPhoriya.ajax.url,
+				data: {
+					action: 'search_products',
+					search: s,
+					result: ( $(window).width() > 767 && $(window).width() < 1280 ) ? 2 : 3
+				},
+				beforeSend: function() {
+					$( '.search-form, #button-search, .overlay' )
+						.addClass( 'sending' );
+				},
+				success: function( response ) {
+					$( '.search-form, #button-search, .overlay' )
+						.removeClass( 'sending' );
+
+					refreshSearch( response );
+				}
+			} ).fail( function( response ) {
+				console.log( response );
+			} );
+		}
+
+		function refreshSearch( data ) {
+			if ( data.fragments ) {
+				$.each( data.fragments, function ( key, value ) {
+					$( key ).replaceWith( value );
+				} );
+			}
+		}
+
+		function hideSearch() {
+			$( '#head-s-results, #head-s-products, #head-s-button' )
+				.addClass( 'hidden' )
+				.empty();
+		}
+
+		// Show search
+		$( document.body ).on( 'click', '#button-search', function() {
+
+			var $thisButton = $(this);
+
+			// Change button
+			$thisButton.toggleClass('active bg-accent');
+
+			// Hide box content
+			$('.info-box .info-box-item, #sticky-nav').toggleClass('hidden');
+
+			// Search showing
+			$('header .header-content-wrap .search-form')
+			.animate({width:'toggle'}, 250)/* .children('input').focus() */;
+
+			if ( ! $thisButton.hasClass( 'active' ) ) {
+				$( '#head-search-form' ).find( 'input' ).val( '' ).blur();
+				hideSearch();
+			} else {
+				$( '#head-search-form' ).find( 'input' ).focus()
+			}
+
+			if ( $(window).width() > 1279 ) {
+
+				if ( ! $thisButton.hasClass( 'active' ) ) {
+					$( '.overlay' ).fadeOut(250, function() {
+						$( 'header' ).removeClass( 'search-header' );
+					} );
+				} else {
+					$( '.overlay' ).fadeIn(250);
+					$( 'header' ).addClass( 'search-header' );
+				}
+
+			}
+
+			$( document.body ).on( 'click', '.overlay', function() {
+				if ( $( 'header' ).hasClass( 'search-header' ) ) {
+					$( 'header' ).removeClass( 'search-header' );
+					hideSearch();
+					$( '#button-search' ).removeClass('active bg-accent');
+					$('.info-box .info-box-item, #sticky-nav')
+						.removeClass('hidden');
+					$('header .header-content-wrap .search-form')
+						.animate({width:'toggle'}, 250)
+				}
+			} );
+
+		} );
+		
+		$( document.body ).on( 'input', '.search-form input', debounce( function() {
+			doAJAXsearch( $( this ).val() );
+
+			// Show reset button
+			if ( $( this ).val() !== '' ) {
+				$( this ).css( 'padding-right', '50px');
+				$( 'header #search-form-m .search-form button[type="reset"]' )
+					.addClass( 'visible' );
+			} else {
+				$( this ).css( 'padding-right', '20px');
+				$( 'header #search-form-m .search-form button[type="reset"]' )
+					.removeClass( 'visible' );
+			}
+		}, iPhoriya.search.delay ?? 500 ) );
+
+		$( document.body )
+			.on( 'click', 'header #search-form-m .search-form button[type="reset"]', function() {
+				$( this ).removeClass( 'visible' );
+			} );
+
+		// Replace a long string
+		$( document.body ).on( 'keypress', '.search-form input', function(){
+			var thisInput = $( this ),
+				maxChars = 30;
+
+			if ( thisInput.val().length > maxChars ) {
+				thisInput.val( thisInput.val().substr(0, maxChars) );
+			}
+		} );
+
+		if ($(window).width() < 1280) {
+			$( document.body ).on( 'submit', '#head-search-form, #search-form-m', function(e) {
+				e.preventDefault();
+			} );
+		}
+
+		if ($(window).width() < 768) {
+			$('#head-s-results, #head-s-products, #head-s-button')
+				.insertAfter('#search-form-m');
+			$('#header-search').remove();
+
+			$( document.body ).on( 'click', '#head-search-form button[type="reset"]', function(e) {
+				hideSearch();
+			} );
+		}
+		
+		if ( $( window ).width() > 767 ) {
+			$( '.header-content-wrap .info-box' ).prepend( $( '#head-search-form' ) );
+		}
+		
+		// Fix form and sticky search conflict on desktop
+		if ( $( window ).width() > 1279 ) {
+			$( document.body ).on( 'click', '#head-s-products .preorder-btn', function() {
+				e.preventDefault();
+				$( this ).removeClass( 'preorder-btn' );
+			} );
+		}
+
+	});
+
+})( jQuery );
